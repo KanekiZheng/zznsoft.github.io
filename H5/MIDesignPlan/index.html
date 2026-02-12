@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米智能家设计阶段指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #FFFFFF;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 1.25rem; /* 20px */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            position: relative;
+        }
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        .highlight-gradient-blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0), rgba(59, 130, 246, 0.05));
+        }
+        .highlight-gradient-green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0), rgba(16, 185, 129, 0.05));
+        }
+        .highlight-gradient-purple {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0), rgba(139, 92, 246, 0.05));
+        }
+        .highlight-gradient-orange {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0), rgba(249, 115, 22, 0.05));
+        }
+        .highlight-gradient-red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0), rgba(239, 68, 68, 0.05));
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+            <!-- 标题卡片 -->
+            <div class="card md:col-span-4 p-8 flex flex-col justify-center items-center text-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative w-full">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">小米智能家居工作室</h1>
+                    <h2 class="text-2xl md:text-4xl font-bold text-blue-600 mb-6">创业指南</h2>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">从基础入门到高端定制的完整创业路线图</p>
+                </div>
+            </div>
+
+            <!-- 市场规模卡片 -->
+            <div class="card md:col-span-2 md:row-span-2 p-8 flex flex-col justify-between relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-4">
+                        <i class="fa-solid fa-chart-line text-3xl text-green-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">市场规模与前景</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-6xl font-bold text-green-600">1.2万亿</p>
+                            <p class="text-gray-600">2026年中国智能家居市场规模（元）</p>
+                        </div>
+                        <div>
+                            <p class="text-6xl font-bold text-green-600">32%</p>
+                            <p class="text-gray-600">同比增长率</p>
+                        </div>
+                        <div>
+                            <p class="text-6xl font-bold text-green-600">18.3%</p>
+                            <p class="text-gray-600">小米市场份额</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative mt-6 h-64">
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 核心优势卡片 -->
+            <div class="card md:col-span-2 p-8 flex flex-col justify-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-rocket text-3xl text-purple-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">小米生态优势</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <p class="text-5xl font-bold text-purple-600">261</p>
+                            <p class="text-gray-600">产品品类</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-5xl font-bold text-purple-600">5.27亿</p>
+                            <p class="text-gray-600">设备激活量</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-5xl font-bold text-purple-600">300+</p>
+                            <p class="text-gray-600">支持设备数</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-5xl font-bold text-purple-600">200ms</p>
+                            <p class="text-gray-600">响应延迟</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 准备工作卡片 -->
+            <div class="card md:col-span-2 p-8 flex flex-col relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-orange"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-gears text-3xl text-orange-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">设计阶段准备</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fa-solid fa-check-circle text-orange-500 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">技术能力储备</h4>
+                                <p class="text-gray-600 text-sm">米家APP操作、设备连接、自动化场景设置</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fa-solid fa-check-circle text-orange-500 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">产品知识体系</h4>
+                                <p class="text-gray-600 text-sm">261个品类、200+智能开关型号、2026年新品</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fa-solid fa-check-circle text-orange-500 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">设计工具与资源</h4>
+                                <p class="text-gray-600 text-sm">户型图绘制、设备布置图、报价单模板</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 基础方案配置卡片 -->
+            <div class="card md:col-span-4 p-8 flex flex-col relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-home text-3xl text-blue-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">基础入门级方案配置（80平米两室一厅）</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-gray-200">
+                                    <th class="pb-3 text-gray-600 font-medium">设备类别</th>
+                                    <th class="pb-3 text-gray-600 font-medium">推荐产品</th>
+                                    <th class="pb-3 text-gray-600 font-medium">数量</th>
+                                    <th class="pb-3 text-gray-600 font-medium">单价（元）</th>
+                                    <th class="pb-3 text-gray-600 font-medium">小计（元）</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="py-3 font-medium">核心控制</td>
+                                    <td>小米中枢网关</td>
+                                    <td>1</td>
+                                    <td>289</td>
+                                    <td>289</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-medium">照明控制</td>
+                                    <td>米家智能开关零火版</td>
+                                    <td>6</td>
+                                    <td>69</td>
+                                    <td>414</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-medium">安防监控</td>
+                                    <td>小米智能门锁E10</td>
+                                    <td>1</td>
+                                    <td>999</td>
+                                    <td>999</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-medium">环境控制</td>
+                                    <td>米家空调伴侣2</td>
+                                    <td>1</td>
+                                    <td>79</td>
+                                    <td>79</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-medium">网络基础</td>
+                                    <td>小米路由器AX3000</td>
+                                    <td>1</td>
+                                    <td>249</td>
+                                    <td>249</td>
+                                </tr>
+                                <tr class="border-t-2 border-gray-200 font-bold">
+                                    <td colspan="4">方案总计</td>
+                                    <td>2,309</td>
+                                </tr>
+                                <tr class="text-gray-600">
+                                    <td colspan="4">服务费（30%-45%）</td>
+                                    <td>693-1,039</td>
+                                </tr>
+                                <tr class="text-gray-800 font-semibold">
+                                    <td colspan="4">总预算范围</td>
+                                    <td>3,002-3,348</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 关键场景卡片 -->
+            <div class="card md:col-span-2 p-8 flex flex-col relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-magic text-3xl text-green-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">关键自动化场景</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-2">回家模式</h4>
+                            <p class="text-sm text-gray-600">指纹开锁 → 玄关灯亮 → 客厅灯开启 → 空调调至24℃</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-2">睡眠模式</h4>
+                            <p class="text-sm text-gray-600">语音"我要睡觉" → 关闭主灯 → 窗帘闭合 → 空调睡眠模式</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-2">起夜模式</h4>
+                            <p class="text-sm text-gray-600">人体感应 → 小夜灯亮起（10%亮度）→ 30秒后自动关闭</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-2">离家模式</h4>
+                            <p class="text-sm text-gray-600">反锁门 → 关闭所有灯光 → 关闭空调 → 启动安防系统</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 客户需求分析卡片 -->
+            <div class="card md:col-span-2 p-8 flex flex-col relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-users text-3xl text-purple-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">客户需求分析</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">远程控制家电</span>
+                            <div class="flex items-center">
+                                <div class="w-32 h-2 bg-gray-200 rounded-full mr-3">
+                                    <div class="h-2 bg-purple-500 rounded-full" style="width: 70%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-purple-600">70%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">智能安防监控</span>
+                            <div class="flex items-center">
+                                <div class="w-32 h-2 bg-gray-200 rounded-full mr-3">
+                                    <div class="h-2 bg-purple-500 rounded-full" style="width: 65%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-purple-600">65%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">语音助手</span>
+                            <div class="flex items-center">
+                                <div class="w-32 h-2 bg-gray-200 rounded-full mr-3">
+                                    <div class="h-2 bg-purple-500 rounded-full" style="width: 55%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-purple-600">55%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">自动节能管理</span>
+                            <div class="flex items-center">
+                                <div class="w-32 h-2 bg-gray-200 rounded-full mr-3">
+                                    <div class="h-2 bg-purple-500 rounded-full" style="width: 50%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-purple-600">50%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">健康检测功能</span>
+                            <div class="flex items-center">
+                                <div class="w-32 h-2 bg-gray-200 rounded-full mr-3">
+                                    <div class="h-2 bg-purple-500 rounded-full" style="width: 35%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-purple-600">35%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 转型策略卡片 -->
+            <div class="card md:col-span-4 p-8 flex flex-col relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-orange"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-arrow-trend-up text-3xl text-orange-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">向高端定制化方案转型</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-lg text-orange-600 mb-3">技术架构升级</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>多中枢网关组网</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>高端控制终端</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>专业网络设备</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>边缘计算能力</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-lg text-orange-600 mb-3">设计思路转变</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>从产品思维到场景思维</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>从标准化到个性化</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>从功能实现到体验优化</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>从单点控制到系统集成</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-lg text-orange-600 mb-3">服务模式升级</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>全流程定制服务</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>专业团队配置</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>差异化定价策略</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-orange-500 mt-1 mr-2"></i>
+                                    <span>增值服务设计</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 预算范围卡片 -->
+            <div class="card md:col-span-2 p-8 flex flex-col justify-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-red"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-money-bill-wave text-3xl text-red-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">不同方案预算范围</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-bold text-red-800">极简版</h4>
+                                <span class="text-2xl font-bold text-red-600">2,000-3,000元</span>
+                            </div>
+                            <p class="text-sm text-gray-600">智能门锁+智能开关3个+人体传感器2个+网关</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-bold text-red-800">标准版</h4>
+                                <span class="text-2xl font-bold text-red-600">5,000-8,000元</span>
+                            </div>
+                            <p class="text-sm text-gray-600">智能门锁+智能开关8个+人体传感器3个+门窗传感器2个+网关+智能音箱</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-bold text-red-800">舒适版</h4>
+                                <span class="text-2xl font-bold text-red-600">8,000-10,000元</span>
+                            </div>
+                            <p class="text-sm text-gray-600">标准版基础上增加空调伴侣、智能窗帘、环境传感器等</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-bold text-red-800">高端定制版</h4>
+                                <span class="text-2xl font-bold text-red-600">50,000-150,000元</span>
+                            </div>
+                            <p class="text-sm text-gray-600">全屋智能联动，包括影音、安防、健康等系统</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 关键成功要素卡片 -->
+            <div class="card md:col-span-2 p-8 flex flex-col justify-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative">
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-key text-3xl text-blue-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">成功关键要素</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <i class="fa-solid fa-cogs text-3xl text-blue-500 mb-2"></i>
+                            <h4 class="font-bold text-blue-800">专业技术能力</h4>
+                            <p class="text-xs text-gray-600 mt-1">精通米家APP操作和设备配置</p>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <i class="fa-solid fa-handshake text-3xl text-blue-500 mb-2"></i>
+                            <h4 class="font-bold text-blue-800">优质客户服务</h4>
+                            <p class="text-xs text-gray-600 mt-1">提供全流程专业服务体验</p>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <i class="fa-solid fa-shield-halved text-3xl text-blue-500 mb-2"></i>
+                            <h4 class="font-bold text-blue-800">可靠产品质量</h4>
+                            <p class="text-xs text-gray-600 mt-1">选择正品保证和稳定产品</p>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <i class="fa-solid fa-comments text-3xl text-blue-500 mb-2"></i>
+                            <h4 class="font-bold text-blue-800">口碑传播</h4>
+                            <p class="text-xs text-gray-600 mt-1">通过客户满意建立品牌形象</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // 市场规模图表
+    const marketCtx = document.getElementById('marketChart').getContext('2d');
+    new Chart(marketCtx, {
+        type: 'bar',
+        data: {
+            labels: ['2023', '2024', '2025', '2026(预测)'],
+            datasets: [{
+                label: '市场规模（万亿元）',
+                data: [0.6, 0.75, 0.91, 1.2],
+                backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                borderColor: 'rgba(16, 185, 129, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: '中国智能家居市场规模增长趋势',
+                    color: '#374151',
+                    font: {
+                        size: 14
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '万亿元',
+                        color: '#6B7280'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+</script>
+</html>
