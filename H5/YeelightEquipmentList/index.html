@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>易来智能灯全品类设备清单</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #FFFFFF;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 1.25rem; /* 20px */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            position: relative;
+        }
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+        .highlight-gradient-blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0), rgba(59, 130, 246, 0.05));
+        }
+        .highlight-gradient-purple {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0), rgba(168, 85, 247, 0.05));
+        }
+        .highlight-gradient-teal {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0), rgba(20, 184, 166, 0.05));
+        }
+        .highlight-gradient-orange {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0), rgba(249, 115, 22, 0.05));
+        }
+        .highlight-gradient-red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0), rgba(239, 68, 68, 0.05));
+        }
+        .highlight-gradient-green {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0), rgba(34, 197, 94, 0.05));
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+            
+            <!-- 标题卡片 -->
+            <div class="card md:col-span-4 p-8 flex flex-col justify-center">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative">
+                    <div class="flex items-center gap-4 mb-2">
+                        <i class="fa-solid fa-lightbulb text-3xl text-blue-500"></i>
+                        <span class="text-sm font-semibold text-blue-500 tracking-wider">YEELIGHT SMART LIGHTING</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">易来智能灯全品类设备清单</h1>
+                    <p class="mt-4 text-lg text-gray-500">与小米生态兼容的全屋智能照明解决方案</p>
+                </div>
+            </div>
+
+            <!-- 产品系列概览 -->
+            <div class="card md:col-span-2 p-6 flex flex-col">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <div class="relative flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">产品系列概览</h2>
+                    <div class="flex-grow h-[250px]">
+                        <canvas id="seriesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 核心优势 -->
+            <div class="card p-6 flex flex-col justify-center items-center text-center">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-teal"></div>
+                <div class="relative">
+                    <i class="fa-solid fa-cogs text-4xl text-teal-500 mb-4"></i>
+                    <h3 class="text-lg font-bold text-gray-800">深度生态兼容</h3>
+                    <p class="text-sm text-gray-500 mt-2">原生支持米家APP、小爱同学、HomeKit、Matter等多平台</p>
+                </div>
+            </div>
+
+            <!-- 产品价格区间 -->
+            <div class="card p-6 flex flex-col justify-center items-center text-center">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-orange"></div>
+                <div class="relative">
+                    <i class="fa-solid fa-sack-dollar text-4xl text-orange-500 mb-4"></i>
+                    <h3 class="text-lg font-bold text-gray-800">全价格覆盖</h3>
+                    <p class="text-sm text-gray-500 mt-2">从百元入门到千元旗舰，满足不同预算客户需求</p>
+                </div>
+            </div>
+
+            <!-- 高端产品系列 -->
+            <div class="card md:col-span-4 p-6">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-red"></div>
+                <div class="relative">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-crown text-2xl text-red-500"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">高端产品系列</h2>
+                        <span class="text-sm font-medium text-red-500 bg-red-50 px-2 py-1 rounded-full">专业级性能</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+                            <h3 class="font-bold text-gray-800">纤玉3.0系列</h3>
+                            <p class="text-sm text-gray-500 mt-1">Ra≥99 超高显色指数，厚度仅25mm</p>
+                            <p class="text-lg font-bold text-red-500 mt-2">¥2028.84起</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+                            <h3 class="font-bold text-gray-800">皓石Pro系列</h3>
+                            <p class="text-sm text-gray-500 mt-1">人体存在感应，240颗灯珠，6000lm</p>
+                            <p class="text-lg font-bold text-red-500 mt-2">¥799起</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+                            <h3 class="font-bold text-gray-800">灵犀3.0系列</h3>
+                            <p class="text-sm text-gray-500 mt-1">Ra98全光谱护眼，RG0无危害防蓝光</p>
+                            <p class="text-lg font-bold text-red-500 mt-2">¥299起</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+                            <h3 class="font-bold text-gray-800">光璨2.0系列</h3>
+                            <p class="text-sm text-gray-500 mt-1">RGB氛围灯，米家和HomeKit双平台</p>
+                            <p class="text-lg font-bold text-red-500 mt-2">¥499起</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中端产品系列 -->
+            <div class="card md:col-span-2 p-6">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-star text-2xl text-green-500"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">中端产品系列</h2>
+                        <span class="text-sm font-medium text-green-500 bg-green-50 px-2 py-1 rounded-full">主流性价比</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-gray-100 shadow-sm">
+                            <div>
+                                <h3 class="font-bold text-gray-800">皎月系列</h3>
+                                <p class="text-sm text-gray-500">性价比高，Ra95显色指数</p>
+                            </div>
+                            <p class="text-lg font-bold text-green-500">¥199起</p>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-gray-100 shadow-sm">
+                            <div>
+                                <h3 class="font-bold text-gray-800">极星3.0系列</h3>
+                                <p class="text-sm text-gray-500">双环绕立体光，8000lm</p>
+                            </div>
+                            <p class="text-lg font-bold text-green-500">¥899起</p>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-gray-100 shadow-sm">
+                            <div>
+                                <h3 class="font-bold text-gray-800">T4/M4系列筒射灯</h3>
+                                <p class="text-sm text-gray-500">全时自然光GEN2，UGR<2</p>
+                            </div>
+                            <p class="text-lg font-bold text-green-500">¥124起</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 低端产品系列 -->
+            <div class="card md:col-span-2 p-6">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-rocket text-2xl text-blue-500"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">低端产品系列</h2>
+                        <span class="text-sm font-medium text-blue-500 bg-blue-50 px-2 py-1 rounded-full">入门级</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-gray-100 shadow-sm">
+                            <div>
+                                <h3 class="font-bold text-gray-800">基础吸顶灯系列</h3>
+                                <p class="text-sm text-gray-500">初心、韶华、星宇，极致性价比</p>
+                            </div>
+                            <p class="text-lg font-bold text-blue-500">¥99起</p>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-gray-100 shadow-sm">
+                            <div>
+                                <h3 class="font-bold text-gray-800">T2系列筒灯</h3>
+                                <p class="text-sm text-gray-500">基础智能筒灯，WiFi连接</p>
+                            </div>
+                            <p class="text-lg font-bold text-blue-500">¥49起</p>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-gray-100 shadow-sm">
+                            <div>
+                                <h3 class="font-bold text-gray-800">彩光灯泡系列</h3>
+                                <p class="text-sm text-gray-500">1600万种颜色，安装简单</p>
+                            </div>
+                            <p class="text-lg font-bold text-blue-500">¥24.9起</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 方案设计建议 -->
+            <div class="card md:col-span-4 p-6">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">方案设计建议</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-5 rounded-lg border border-gray-100 shadow-sm flex flex-col">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="fa-solid fa-house text-2xl text-purple-500"></i>
+                                <h3 class="text-xl font-bold text-gray-800">基础方案</h3>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">适合两室一厅户型，实现基础智能照明控制。</p>
+                            <ul class="text-sm space-y-2 text-gray-600 mb-4">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>客厅：皎月系列 (32W)</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>卧室：韶华系列</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>厨卫：基础面板灯</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>开关：T2单开</span></li>
+                            </ul>
+                            <div class="mt-auto pt-4">
+                                <p class="text-2xl font-bold text-purple-500">¥3000-5000</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg border border-gray-100 shadow-sm flex flex-col">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="fa-solid fa-house-chimney text-2xl text-purple-500"></i>
+                                <h3 class="text-xl font-bold text-gray-800">进阶方案</h3>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">适合三室两厅户型，实现全屋智能照明及氛围营造。</p>
+                            <ul class="text-sm space-y-2 text-gray-600 mb-4">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>客厅：灵犀3.0标准版</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>主卧：皓石Pro</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>厨卫：浴霸+面板灯</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>氛围：1S系列灯带</span></li>
+                            </ul>
+                            <div class="mt-auto pt-4">
+                                <p class="text-2xl font-bold text-purple-500">¥5000-10000</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg border border-gray-100 shadow-sm flex flex-col">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="fa-solid fa-building text-2xl text-purple-500"></i>
+                                <h3 class="text-xl font-bold text-gray-800">高端方案</h3>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">适合大平层或别墅，五星级酒店级别的智能照明体验。</p>
+                            <ul class="text-sm space-y-2 text-gray-600 mb-4">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>客厅：纤玉3.0 (10000lm)</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>筒灯：T4/M4系列</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>开关：S21全面屏</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-500 mt-1 text-xs"></i><span>特色：青空灯</span></li>
+                            </ul>
+                            <div class="mt-auto pt-4">
+                                <p class="text-2xl font-bold text-purple-500">¥10000+</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 兼容性与采购 -->
+            <div class="card md:col-span-2 p-6">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-teal"></div>
+                <div class="relative">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">生态兼容性</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-mobile-screen-button text-xl text-teal-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>米家APP：</strong>所有产品原生支持</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-microphone-lines text-xl text-teal-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>小爱同学：</strong>语音控制</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-brands fa-apple text-xl text-teal-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>HomeKit：</strong>部分产品支持</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-network-wired text-xl text-teal-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>Matter协议：</strong>多平台互联</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-wifi text-xl text-teal-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>连接方式：</strong>WiFi / 蓝牙Mesh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card md:col-span-2 p-6">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-orange"></div>
+                <div class="relative">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">采购与售后</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-store text-xl text-orange-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>采购渠道：</strong>官方/授权经销商/1688</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-percent text-xl text-orange-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>批量折扣：</strong>工程采购20%+折扣</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-shield-halved text-xl text-orange-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>质保政策：</strong>线下5年，线上2年</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-headset text-xl text-orange-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>售后服务：</strong>7×24小时在线，全国5000+服务点</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-industry text-xl text-orange-500 w-6 text-center"></i>
+                            <span class="text-gray-700"><strong>生产保障：</strong>华南、华北两大生产基地</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // 产品系列概览图表
+    const seriesCtx = document.getElementById('seriesChart').getContext('2d');
+    const seriesChart = new Chart(seriesCtx, {
+        type: 'bar',
+        data: {
+            labels: ['高端系列', '中端系列', '低端系列', '厨卫专用', '氛围照明', '智能开关'],
+            datasets: [{
+                label: '产品数量',
+                data: [5, 4, 3, 2, 3, 2],
+                backgroundColor: [
+                    'rgba(239, 68, 68, 0.6)',
+                    'rgba(34, 197, 94, 0.6)',
+                    'rgba(59, 130, 246, 0.6)',
+                    'rgba(249, 115, 22, 0.6)',
+                    'rgba(168, 85, 247, 0.6)',
+                    'rgba(20, 184, 166, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(239, 68, 68, 1)',
+                    'rgba(34, 197, 94, 1)',
+                    'rgba(59, 130, 246, 1)',
+                    'rgba(249, 115, 22, 1)',
+                    'rgba(168, 85, 247, 1)',
+                    'rgba(20, 184, 166, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: '#ffffff',
+                    titleColor: '#333333',
+                    bodyColor: '#666666',
+                    borderColor: '#eeeeee',
+                    borderWidth: 1
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        precision: 0
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+</script>
+</html>
